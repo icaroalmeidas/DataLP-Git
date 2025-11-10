@@ -1,0 +1,31 @@
+{
+  "name": "Custom",
+  "dataColors": [
+    "#59B7C8",
+    "#9D79AA",
+    "#D1783C",
+    "#411C52",
+    "#734F8E",
+    "#402040",
+    "#897D2E",
+    "#C54339"
+  ],
+  "bad": "#FE9292",
+  "neutral": "#FEF592",
+  "good": "#94FE92",
+  "textClasses": {
+    "label": {
+      "color": "#FFFFFF"
+    },
+    "callout": {
+      "color": "#FFFFFF",
+      "fontSize": 18
+    },
+    "title": {
+      "color": "#FFFFFF"
+    },
+    "header": {
+      "color": "#FFFFFF"
+    }
+  }
+}

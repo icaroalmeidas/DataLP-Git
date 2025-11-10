@@ -1,0 +1,60 @@
+table dDeliveries
+	lineageTag: 5c8d7df2-c829-4a24-b3a5-b6dad75ea075
+
+	column delivery_id
+		dataType: string
+		lineageTag: 68aaa344-1929-4519-bca7-2ff51f45401f
+		summarizeBy: none
+		sourceColumn: delivery_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_order_id
+		dataType: string
+		lineageTag: 45bd020e-ae52-4bc6-b64f-bb61fcc86dc7
+		summarizeBy: none
+		sourceColumn: delivery_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_id
+		dataType: string
+		lineageTag: ad747d05-ef4e-4b04-8ee1-7aa3e42aa931
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_distance_meters
+		dataType: int64
+		formatString: 0
+		lineageTag: f3a8bdf8-8834-4be5-a07b-646e014b0003
+		summarizeBy: sum
+		sourceColumn: delivery_distance_meters
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_status
+		dataType: string
+		lineageTag: 787456e9-0338-4f4a-aee1-2c2ab9a58553
+		summarizeBy: none
+		sourceColumn: delivery_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDeliveries = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1GkQqMGIBhb_HcAZ4i4cfBGdq2gMkA1ei"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"delivery_id", type text}, {"delivery_order_id", type text}, {"driver_id", type text}, {"delivery_distance_meters", Int64.Type}, {"delivery_status", type text}}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Tipo Alterado", {"delivery_order_id"}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Duplicatas Removidas",{"delivery_id", "delivery_order_id", "driver_id", "delivery_distance_meters", "delivery_status"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

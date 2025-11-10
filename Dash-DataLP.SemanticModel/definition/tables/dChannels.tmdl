@@ -1,0 +1,42 @@
+table dChannels
+	lineageTag: 61f98f03-e3b3-4801-801c-501b5255781c
+
+	column channel_id
+		dataType: string
+		lineageTag: 91b0159c-7efe-4ae4-92b5-a3365dd86b94
+		summarizeBy: none
+		sourceColumn: channel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_name
+		dataType: string
+		lineageTag: 4ff06c89-0de2-4bfe-b0dc-a2de5bf56df5
+		summarizeBy: none
+		sourceColumn: channel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_type
+		dataType: string
+		lineageTag: d6be9cf5-59b5-4a62-94c1-dcbdc5c05ecc
+		summarizeBy: none
+		sourceColumn: channel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dChannels = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=16UMPl4fbMR6TUgxO36mNNdLV3rJrzMyL"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"channel_id", type text}, {"channel_name", type text}, {"channel_type", type text}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"channel_id", "channel_name", "channel_type"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

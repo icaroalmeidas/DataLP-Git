@@ -1,0 +1,48 @@
+table 'Parâmetro Tempo de Resposta'
+	lineageTag: ec41e9eb-a6f2-40b9-925e-bd50e889633e
+
+	column 'Parâmetro Tempo de Resposta'
+		lineageTag: 0f9f2439-7c77-49cd-a024-6125c0bed3bb
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parâmetro Tempo de Resposta Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Parâmetro Tempo de Resposta Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Tempo de Resposta Campos'
+		isHidden
+		lineageTag: 6090f477-0d8b-4163-b0b6-db2444660adc
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parâmetro Tempo de Resposta Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Tempo de Resposta Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 43470b53-6a39-42ec-9cb9-057a88ed99af
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parâmetro Tempo de Resposta' = calculated
+		mode: import
+		source =
+				{
+				    ("Mês", NAMEOF('dCalendario'[NomeDoMêsAbrev]), 0),
+				    ("Semana do Ano", NAMEOF('dCalendario'[NomeDaSemanaAno]), 1)
+				}
+
+	annotation PBI_Id = cc1c4eb5142142e6923ff9ae9de68cb8
+

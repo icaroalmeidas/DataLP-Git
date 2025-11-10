@@ -1,0 +1,77 @@
+table dStores
+	lineageTag: f2e4f088-f311-42b2-bbc5-0c2fc96a9cbe
+
+	column store_id
+		dataType: string
+		lineageTag: f29f6b94-1936-4fdd-a63f-2c406fc2f111
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_id
+		dataType: string
+		lineageTag: 5b292d44-2f16-43bb-83db-421f7efced53
+		summarizeBy: none
+		sourceColumn: hub_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: fdf4259c-abf3-4fe1-ae97-7ff88693b2e0
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_segment
+		dataType: string
+		lineageTag: 96e479f6-88de-4201-b9d6-17cc7e0200ce
+		summarizeBy: none
+		sourceColumn: store_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_plan_price
+		dataType: int64
+		formatString: 0
+		lineageTag: 06d05598-8760-41e5-a7d7-4ab49064076e
+		summarizeBy: sum
+		sourceColumn: store_plan_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_latitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a62f4d0-b45c-4b5f-99bc-120407516ae3
+		summarizeBy: sum
+		sourceColumn: store_latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_longitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 362cc1a5-e055-4719-bc23-72b984138b0b
+		summarizeBy: sum
+		sourceColumn: store_longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dStores = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1v917KRyJzvwkp8WDd1YNX1zD7EizBQn-"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"store_id", type text}, {"hub_id", type text}, {"store_name", type text}, {"store_segment", type text}, {"store_plan_price", Int64.Type}, {"store_latitude", Int64.Type}, {"store_longitude", Int64.Type}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"store_id", "hub_id", "store_name", "store_segment", "store_plan_price", "store_latitude", "store_longitude"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

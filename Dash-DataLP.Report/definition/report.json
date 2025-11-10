@@ -1,0 +1,133 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY25SU10",
+      "reportVersionAtImport": {
+        "visual": "2.1.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom1779925697064738.json",
+      "reportVersionAtImport": {
+        "visual": "2.1.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "histogramF963F133BA02A0B35D286F09F80E9C78",
+    "pureVizInfographicC9801BF222134D2D83FA9C41861F3482",
+    "htmlContent443BE3AD55E043BF878BED274D3A6855"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY25SU10",
+          "path": "BaseThemes/CY25SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Custom1779925697064738.json",
+          "path": "Custom1779925697064738.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "1._icone_home8264672112748255.svg",
+          "path": "1._icone_home8264672112748255.svg",
+          "type": "Image"
+        },
+        {
+          "name": "3._icone_geral01103888110571738.svg",
+          "path": "3._icone_geral01103888110571738.svg",
+          "type": "Image"
+        },
+        {
+          "name": "9._estoque1742795152595984.svg",
+          "path": "9._estoque1742795152595984.svg",
+          "type": "Image"
+        },
+        {
+          "name": "line-md_filter9836502820868323.svg",
+          "path": "line-md_filter9836502820868323.svg",
+          "type": "Image"
+        },
+        {
+          "name": "2._limpa_filtro035006336917035474.svg",
+          "path": "2._limpa_filtro035006336917035474.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Capa_versao_dark2163060238967518.svg",
+          "path": "Capa_versao_dark2163060238967518.svg",
+          "type": "Image"
+        },
+        {
+          "name": "1._Geral9079931662337002.svg",
+          "path": "1._Geral9079931662337002.svg",
+          "type": "Image"
+        },
+        {
+          "name": "2._Pedidos5810395706213254.svg",
+          "path": "2._Pedidos5810395706213254.svg",
+          "type": "Image"
+        },
+        {
+          "name": "4._icone_analitico6711358152056869.svg",
+          "path": "4._icone_analitico6711358152056869.svg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

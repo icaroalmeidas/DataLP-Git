@@ -1,0 +1,87 @@
+table dHubs
+	lineageTag: a5d9e7e4-ad40-474a-80cb-ded2d838f10d
+
+	column hub_id
+		dataType: string
+		lineageTag: 2416ddd4-021c-4e45-ad6d-2568c9ed74af
+		summarizeBy: none
+		sourceColumn: hub_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_name
+		dataType: string
+		lineageTag: 37657811-4dc3-4cdd-aef8-b2ec88569a7f
+		summarizeBy: none
+		sourceColumn: hub_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_city
+		dataType: string
+		lineageTag: 2fccd602-93a5-4525-b6c6-1b7e1372e2d7
+		summarizeBy: none
+		sourceColumn: hub_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_state
+		dataType: string
+		lineageTag: d4ae8ebb-730f-4cd3-ab8a-9ec4b28e3042
+		summarizeBy: none
+		sourceColumn: hub_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_latitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 4573aeef-1207-414f-adad-d7ce4e83dbda
+		summarizeBy: none
+		sourceColumn: hub_latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column hub_longitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f240684-0962-44e7-9c03-c0a6cdf75067
+		summarizeBy: none
+		sourceColumn: hub_longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column País
+		dataType: string
+		lineageTag: 5fb14439-e3ac-4487-826b-b91d348a6860
+		summarizeBy: none
+		sourceColumn: País
+
+		annotation SummarizationSetBy = Automatic
+
+	column Localização
+		dataType: string
+		lineageTag: 6f28afd6-7132-4da2-bcfd-9e901ed4111c
+		summarizeBy: none
+		sourceColumn: Localização
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dHubs = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1oXpzh2A9xbyhKd7S05AsUNcjAYQZRpYC"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"hub_id", type text}, {"hub_name", type text}, {"hub_city", type text}, {"hub_state", type text}, {"hub_latitude", Int64.Type}, {"hub_longitude", Int64.Type}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"hub_id", "hub_name", "hub_city", "hub_state", "hub_latitude", "hub_longitude"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Outras Colunas Removidas", "País", each "Brasil"),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Personalização Adicionada", "Localização", each Text.Combine({[hub_city], [hub_state], [País]}, ","), type text),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Mesclada Inserida",{{"País", type text}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

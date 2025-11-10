@@ -1,0 +1,69 @@
+table dPayment
+	lineageTag: b575f7b2-bfe7-4738-9298-abdb011efd4b
+
+	column payment_id
+		dataType: string
+		lineageTag: 44ae6b0f-a28c-4148-8aa0-356c71bec9a7
+		summarizeBy: none
+		sourceColumn: payment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_order_id
+		dataType: string
+		lineageTag: 3c11f9e3-fbd9-4e5f-99a2-ab2fa6358198
+		summarizeBy: none
+		sourceColumn: payment_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: 18473aa8-077d-4a23-a619-943c9ae8f7fd
+		summarizeBy: none
+		sourceColumn: payment_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_fee
+		dataType: int64
+		formatString: 0
+		lineageTag: 712a6e63-547b-407e-91a8-f4632987ff90
+		summarizeBy: none
+		sourceColumn: payment_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: f2f6cdc6-106b-4d88-8fb7-0ac3bbbb221f
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: f1033236-f1a6-4d24-a2f7-cc2b5dfbf74e
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPayment = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1h1JsHBUrczyyJhstmFvcT_X91cfsP-_1"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"payment_id", type text}, {"payment_order_id", type text}, {"payment_amount", Int64.Type}, {"payment_fee", Int64.Type}, {"payment_method", type text}, {"payment_status", type text}}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Tipo Alterado", {"payment_order_id"}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Duplicatas Removidas",{"payment_id", "payment_order_id", "payment_amount", "payment_fee", "payment_method", "payment_status"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
