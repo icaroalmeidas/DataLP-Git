@@ -1,0 +1,175 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1131.6945172328328,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1272.6578288697315,
+            "y": 405.07950302868545
+          },
+          "nodeIndex": "dDrivers",
+          "nodeLineageTag": "ffb97343-1f29-4bdf-b445-d9ff3f02657d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 892.45543195838763,
+            "y": 584.28760704719218
+          },
+          "nodeIndex": "dHubs",
+          "nodeLineageTag": "a5d9e7e4-ad40-474a-80cb-ded2d838f10d",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 620.33944003407964,
+            "y": 339.59936952328144
+          },
+          "nodeIndex": "dStores",
+          "nodeLineageTag": "f2e4f088-f311-42b2-bbc5-0c2fc96a9cbe",
+          "size": {
+            "height": 257.86533203067222,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 393.43763039968792,
+            "y": 0
+          },
+          "nodeIndex": "fOrders",
+          "nodeLineageTag": "cf3556ad-2f7e-402f-a99d-e46492e1ab6d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1095.653018631876,
+            "y": 0
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "c3e93042-508c-44f3-87a2-45c7532cf758",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 926.385510761309,
+            "y": 314.19229881830273
+          },
+          "nodeIndex": "dDeliveries",
+          "size": {
+            "height": 216,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1446.7298433850976,
+            "y": 5.3651763089503106
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "e3fdab0d-af7c-4211-b92e-c3639b58ec66",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 293
+          },
+          "nodeIndex": "dPayment",
+          "size": {
+            "height": 241,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 360.8981311282397
+          },
+          "nodeIndex": "dChannels",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1730.7298433850976,
+            "y": 328.14380352359609
+          },
+          "nodeIndex": "PARAMETRO CIDADE",
+          "nodeLineageTag": "5a2f253b-385f-456c-8413-0a9da2fc570e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2014.7298433850976,
+            "y": 328.14380352359609
+          },
+          "nodeIndex": "Parâmetro Tempo de Resposta",
+          "nodeLineageTag": "ec41e9eb-a6f2-40b9-925e-bd50e889633e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2582.7298433850974,
+            "y": 340.14380352359609
+          },
+          "nodeIndex": "zMedidas",
+          "nodeLineageTag": "d2e80805-e69e-4f0b-ba59-b41769ce9f7a",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 70.955543900968834,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

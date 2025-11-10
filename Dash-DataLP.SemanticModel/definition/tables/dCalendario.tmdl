@@ -1,0 +1,213 @@
+table dCalendario
+	lineageTag: c3e93042-508c-44f3-87a2-45c7532cf758
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7b9743cb-09d0-4cbe-bb61-1fd4740a1d51
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f7716a5-2be9-4849-a633-d057c4fe0d27
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semestre
+		dataType: int64
+		formatString: 0
+		lineageTag: 68aa73a5-b95f-4b93-b348-bff0004e9c13
+		summarizeBy: none
+		sourceColumn: Semestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: b51bf504-606e-4d71-b8e2-7b3007e7c5a9
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d473b57-3085-4062-870b-a678e168df6c
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 54e0a92c-29f9-42b7-ac1e-4ce0e44bdce2
+		summarizeBy: none
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMesNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 21a5d2ad-4cef-4b12-abc3-19c4829760ca
+		summarizeBy: none
+		sourceColumn: AnoMesNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoSemestre
+		dataType: int64
+		formatString: 0
+		lineageTag: a9edc39f-9b1d-455d-99c8-1717cdf1e58e
+		summarizeBy: none
+		sourceColumn: AnoSemestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaAno
+		dataType: int64
+		formatString: 0
+		lineageTag: 3575de19-824d-492d-9424-a95058e25026
+		summarizeBy: none
+		sourceColumn: SemanaAno
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMes
+		dataType: int64
+		formatString: 0
+		lineageTag: 83a40628-1c4e-462e-ac95-5ed60d050792
+		summarizeBy: none
+		sourceColumn: SemanaMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMes
+		dataType: string
+		lineageTag: ee0fe878-ed93-45d7-bf78-ef24de9819d2
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDoSemestre
+		dataType: string
+		lineageTag: 20213f87-a417-478f-9dc5-8c381615eae9
+		summarizeBy: none
+		sourceColumn: NomeDoSemestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDoTrimestre
+		dataType: string
+		lineageTag: 66ee8fe0-ac5b-4335-84b2-a7c3df5ff53e
+		summarizeBy: none
+		sourceColumn: NomeDoTrimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDoMês
+		dataType: string
+		lineageTag: 228aec10-2d6d-4fb2-90f2-0bc0288108bd
+		summarizeBy: none
+		sourceColumn: NomeDoMês
+		sortByColumn: Mês
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDoMêsAbrev
+		dataType: string
+		lineageTag: 3c5fdb19-a859-4fc4-a670-b2f5f4dc5a82
+		summarizeBy: none
+		sourceColumn: NomeDoMêsAbrev
+		sortByColumn: Mês
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiaDaSemana
+		dataType: string
+		lineageTag: 72940328-9cbc-4b21-8f31-b715d488df99
+		summarizeBy: none
+		sourceColumn: DiaDaSemana
+		sortByColumn: DiaSemNum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDaSemanaAno
+		dataType: string
+		lineageTag: 96c90212-7a35-4e0b-b270-b68dc5a618f7
+		summarizeBy: none
+		sourceColumn: NomeDaSemanaAno
+		sortByColumn: SemanaAno
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeDaSemanaMes
+		dataType: string
+		lineageTag: c2e5c2df-3677-4b2d-8f45-9fdd445bd1e9
+		summarizeBy: none
+		sourceColumn: NomeDaSemanaMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiaSemNum
+		dataType: string
+		lineageTag: ae612ca7-049d-41db-a4d1-1302142956b0
+		summarizeBy: none
+		sourceColumn: DiaSemNum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario = m
+		mode: import
+		source =
+				let
+				    MenorData = #date(Date.Year(Record.Field(Table.Min(fOrders,"order_moment_created"),"order_moment_created")), 1, 1),
+				    MaiorData = #date(Date.Year(Record.Field(Table.Max(fOrders,"order_moment_created"),"order_moment_created")), 12, 31),
+				    ListaDatas = List.Dates( MenorData , Duration.Days( MaiorData - MenorData ) + 1 , #duration(1, 0, 0, 0) ),
+				    TabelaConvertida = Table.FromList(ListaDatas, Splitter.SplitByNothing(), {"Data"}, null, ExtraValues.Error),
+				    Ano = Table.AddColumn(TabelaConvertida, "Ano", each Date.Year([Data]), Int32.Type),
+				    Semestre = Table.AddColumn(Ano, "Semestre", each if Date.QuarterOfYear([Data]) <= 2 then 1 else 2, Int32.Type),
+				    Trimestre = Table.AddColumn(Semestre, "Trimestre", each Date.QuarterOfYear([Data]), Int32.Type),
+				    Mês = Table.AddColumn(Trimestre, "Mês", each Date.Month([Data]), Int32.Type),
+				    Dia = Table.AddColumn(Mês, "Dia", each Date.Day([Data]), Int32.Type),
+				    AnoMesNum = Table.AddColumn(Dia, "AnoMesNum", each Int32.From( Text.From([Ano])&Text.PadStart(Text.From([Mês]),2,"0") ), Int32.Type),
+				    AnoSemestre = Table.AddColumn(AnoMesNum, "AnoSemestre", each if [Trimestre] <= 2 then Int32.From(Text.From([Ano])&"01") else Int32.From(Text.From([Ano])&"02"), Int32.Type),
+				    SemanaAno = Table.AddColumn(AnoSemestre, "SemanaAno", each Date.WeekOfYear([Data]), Int32.Type),
+				    SemanaMes = Table.AddColumn(SemanaAno, "SemanaMes", each Date.WeekOfMonth([Data]), Int32.Type),
+				    NomeDoSemestre = Table.AddColumn(SemanaMes, "NomeDoSemestre", each if [Trimestre]<= 2 then "S1" else "S2", type text),
+				    NomeDoTrimestre = Table.AddColumn(NomeDoSemestre, "NomeDoTrimestre", each Text.From([Trimestre]) & "º TRI", type text),
+				    NomeDoMês = Table.AddColumn(NomeDoTrimestre, "NomeDoMês", each Text.Proper( Date.MonthName([Data], "pt-BR") ), type text ),
+				    NomeDoMêsAbrev = Table.AddColumn(NomeDoMês, "NomeDoMêsAbrev", each Text.Start(Text.Proper([NomeDoMês]), 3), type text),
+				    DiaDaSemana = Table.AddColumn(NomeDoMêsAbrev, "DiaDaSemana", each Text.Proper(Date.DayOfWeekName([Data], "pt-BR")), type text),
+				    NomeDaSemanaAno = Table.AddColumn(DiaDaSemana, "NomeDaSemanaAno", each "W"&Text.From([SemanaAno])&"/"&Text.End(Text.From([Ano]),2), type text),
+				    NomeDaSemanaMes = Table.AddColumn(NomeDaSemanaAno, "NomeDaSemanaMes", each "W"&Text.From([SemanaMes]), type text),
+				    AnoMes = Table.AddColumn(NomeDaSemanaMes, "AnoMes", each Text.Combine({Text.Start(Text.Proper([NomeDoMês]), 3), "/", Text.Middle(Text.From([Ano], "pt-BR"), 2)}), type text),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(AnoMes, "DiaSemNum", each if [DiaDaSemana] = "Domingo" then 1 else if [DiaDaSemana] = "Segunda-Feira" then 2 else if [DiaDaSemana] = "Terça-Feira" then 3 else if [DiaDaSemana] = "Quarta-Feira" then 4 else if [DiaDaSemana] = "Quinta-Feira" then 5 else if [DiaDaSemana] = "Sexta-Feira" then 6 else if [DiaDaSemana] = "Sábado" then 7 else null),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"Data", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

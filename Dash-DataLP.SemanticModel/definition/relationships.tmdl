@@ -1,0 +1,28 @@
+relationship AutoDetected_d294de5a-f98a-4d95-b0ac-e19b39533f37
+	fromColumn: fOrders.channel_id
+	toColumn: dChannels.channel_id
+
+relationship AutoDetected_1f184532-8757-4f96-99a8-60046148173e
+	fromColumn: dStores.hub_id
+	toColumn: dHubs.hub_id
+
+relationship AutoDetected_55b682f9-0c14-4f24-8808-46173a9255df
+	fromColumn: fOrders.store_id
+	toColumn: dStores.store_id
+
+relationship AutoDetected_0c9d73d2-f37a-4f26-b59f-04365031148a
+	fromColumn: dDeliveries.driver_id
+	toColumn: dDrivers.driver_id
+
+relationship fb84b6d1-d3b3-11b9-b2ec-ac480b4e15b7
+	fromColumn: fOrders.order_id
+	toColumn: dDeliveries.delivery_order_id
+
+relationship 9bda8766-1e2f-8d59-5b61-9d013eba5545
+	fromColumn: fOrders.order_id
+	toColumn: dPayment.payment_order_id
+
+relationship ff16cbf3-e8dc-b8f3-ac6e-43aa1e3ad79c
+	fromColumn: fOrders.Data
+	toColumn: dCalendario.Data
+

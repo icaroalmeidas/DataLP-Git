@@ -1,0 +1,42 @@
+table dDrivers
+	lineageTag: ffb97343-1f29-4bdf-b445-d9ff3f02657d
+
+	column driver_id
+		dataType: string
+		lineageTag: 2761c999-56f2-4d87-933f-a41a721d23f5
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_modal
+		dataType: string
+		lineageTag: 87fbba6d-c9fb-4660-9b93-ca5953d325a2
+		summarizeBy: none
+		sourceColumn: driver_modal
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_type
+		dataType: string
+		lineageTag: 3b067f7f-9048-4f25-978f-6b9fe87cd378
+		summarizeBy: none
+		sourceColumn: driver_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDrivers = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1x_h0tKUKtUD3jkzuP9dOUmrafN9AaP0c"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Cabeçalhos Promovidos",{"driver_id", "driver_modal", "driver_type"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Outras Colunas Removidas",{{"driver_id", type text}, {"driver_modal", type text}, {"driver_type", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

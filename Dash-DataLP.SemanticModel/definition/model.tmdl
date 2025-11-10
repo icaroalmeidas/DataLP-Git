@@ -1,0 +1,30 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dChannels","dHubs","dDeliveries","dDrivers","fOrders","dPayment","dStores","dCalendario","zMedidas"]
+
+annotation PBI_ProTooling = ["CalcGroup","DevMode"]
+
+ref table dChannels
+ref table dHubs
+ref table dDeliveries
+ref table dDrivers
+ref table fOrders
+ref table dPayment
+ref table dStores
+ref table dCalendario
+ref table Medidas
+ref table 'PARAMETRO CIDADE'
+ref table 'Parâmetro Tempo de Resposta'
+ref table zMedidas
+
+ref cultureInfo pt-BR
+

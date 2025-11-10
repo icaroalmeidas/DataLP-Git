@@ -1,0 +1,122 @@
+table zMedidas
+	lineageTag: d2e80805-e69e-4f0b-ba59-b41769ce9f7a
+
+	measure 'Linha Anterior' = [Receita LM]
+		formatString: 0
+		lineageTag: f2e6275c-c698-4dc2-8fb5-d7d7ece0300a
+
+	measure 'Linha Atual' = ```
+			
+			
+			VAR vContexto = SELECTEDVALUE( zMedidas[Metrica] )
+			
+			RETURN
+			    IF(
+			        vContexto in { "Atual", "" }, 
+			        [Receita]
+			        )
+			```
+		formatString: 0
+		lineageTag: 9abbe333-7539-4e8e-9da7-d41e90494524
+
+	measure 'Seta Baixo (Inf)' = ```
+			
+			
+			VAR vContexto = SELECTEDVALUE(zMedidas[Metrica])
+			
+			VAR vAtual = [Receita]
+			var vAnterior = [Receita LM]
+			
+			RETURN 
+			    IF(
+			        vContexto = "" && 
+			        vAtual < vAnterior,
+			        vAtual
+			    )
+			```
+		formatString: 0
+		lineageTag: 0414284e-8577-4746-90b1-e91ec85d94ae
+
+	measure 'Seta Baixo (Sup)' = ```
+			
+			
+			VAR vContexto = SELECTEDVALUE(zMedidas[Metrica])
+			
+			VAR vAtual = [Receita]
+			var vAnterior = [Receita LM]
+			
+			RETURN 
+			    IF(
+			        vContexto = "" && 
+			        vAtual < vAnterior,
+			        vAnterior
+			    )
+			    
+			```
+		formatString: 0
+		lineageTag: 89bea172-9681-4450-8430-c896d777cf1a
+
+	measure 'Seta Cima' = ```
+			
+			
+			VAR vContexto = SELECTEDVALUE(zMedidas[Metrica])
+			
+			VAR vAtual = [Receita]
+			var vAnterior = [Receita LM]
+			
+			RETURN 
+			    IF(
+			        vContexto = "" && 
+			        vAtual >= vAnterior,
+			        vAtual
+			    )
+			```
+		formatString: 0
+		lineageTag: 79b309bf-b6eb-45ae-aaf9-697aad79d038
+
+	measure 'Valor  Contexto' = ```
+			
+			  
+			  VAR vContexto = SELECTEDVALUE( zMedidas[Metrica])
+			  RETURN 
+			    SWITCH(
+			        TRUE(),
+			        vContexto = "Atual", [Receita],
+			        vContexto = "Anterior", [Receita LM]
+			    )
+			```
+		formatString: 0
+		lineageTag: 9c2b160a-9329-4434-b868-d1a5cc60df9b
+
+	column Metrica
+		dataType: string
+		lineageTag: 5ad47fb7-1ab3-444c-b0d6-f694c0327849
+		summarizeBy: none
+		sourceColumn: Metrica
+		sortByColumn: Ordem
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem
+		dataType: int64
+		formatString: 0
+		lineageTag: a18588d6-3211-4d49-a127-f77c93432e6c
+		summarizeBy: sum
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition zMedidas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcswrSS3KzC9S0lEyVIrVAQqUlCbmAHlGYB6QYawUGwsA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Medida = _t, Ordem = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Medida", type text}, {"Ordem", Int64.Type}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"Medida", "Metrica"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+

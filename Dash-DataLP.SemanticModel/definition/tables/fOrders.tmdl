@@ -1,0 +1,331 @@
+table fOrders
+	lineageTag: cf3556ad-2f7e-402f-a99d-e46492e1ab6d
+
+	column order_id
+		dataType: string
+		lineageTag: 2f1c32a1-0b4e-4c51-8525-b523d8bb135d
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: string
+		lineageTag: 03c4d00a-708d-4e8f-a9c6-152eb3dbf074
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_id
+		dataType: string
+		lineageTag: 9d5a5a60-dc51-48db-8bb1-c2ce8b0fc255
+		summarizeBy: none
+		sourceColumn: channel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_order_id
+		dataType: string
+		lineageTag: 3d94a92e-191d-403f-98a3-05039198f03f
+		summarizeBy: none
+		sourceColumn: payment_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_order_id
+		dataType: string
+		lineageTag: 8a4c3176-e320-42d6-9db3-1ca8fcb5daf0
+		summarizeBy: none
+		sourceColumn: delivery_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 0a9a22ba-3f91-4b8d-8655-0113fbef0689
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: d3c94f86-5a52-4ed1-85f9-3e01d9d41b79
+		summarizeBy: sum
+		sourceColumn: order_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivery_fee
+		dataType: int64
+		formatString: 0
+		lineageTag: 268b1c52-3161-49fc-9dbe-d54c54bab780
+		summarizeBy: sum
+		sourceColumn: order_delivery_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivery_cost
+		dataType: double
+		formatString: 0
+		lineageTag: 2e98b3e0-b0f1-4c0b-9c44-57b09cca450f
+		summarizeBy: sum
+		sourceColumn: order_delivery_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: 76711573-1f23-4df8-be8a-81e0e51854fc
+		summarizeBy: sum
+		sourceColumn: order_created_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_minute
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cc33aca-1e38-4333-8b56-f4a36037c915
+		summarizeBy: sum
+		sourceColumn: order_created_minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_day
+		dataType: int64
+		formatString: 0
+		lineageTag: 828613b5-0f7f-4397-99fa-a2014f9fa460
+		summarizeBy: sum
+		sourceColumn: order_created_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_month
+		dataType: int64
+		formatString: 0
+		lineageTag: a340c984-4b64-489a-ab3f-55425d3da119
+		summarizeBy: sum
+		sourceColumn: order_created_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_created_year
+		dataType: int64
+		formatString: 0
+		lineageTag: c8088b36-09b7-4a71-8403-1e5d7d5c3311
+		summarizeBy: sum
+		sourceColumn: order_created_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_accepted
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 40a9023c-d425-44c1-8d18-d6321c393ba4
+		summarizeBy: none
+		sourceColumn: order_moment_accepted
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_ready
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3e564104-d0bc-467b-9167-df2a115f7ea6
+		summarizeBy: none
+		sourceColumn: order_moment_ready
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_delivering
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5613a5be-e809-49dd-9cfc-68b7d6dc70e4
+		summarizeBy: none
+		sourceColumn: order_moment_delivering
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_finished
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6b5b721a-11e0-4b14-ac64-edfe35d5e59c
+		summarizeBy: none
+		sourceColumn: order_moment_finished
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_collected_time
+		dataType: double
+		formatString: 0
+		lineageTag: 2874b791-66ac-4280-b314-2d2817b26e36
+		summarizeBy: sum
+		sourceColumn: order_metric_collected_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_production_time
+		dataType: double
+		formatString: 0
+		lineageTag: 53ab2773-c96e-445f-b6c7-1604b04ca82a
+		summarizeBy: sum
+		sourceColumn: order_metric_production_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_expediton_speed_time
+		dataType: double
+		formatString: 0
+		lineageTag: 5a9a8a15-67de-4be4-b60f-fa8eaff01fdf
+		summarizeBy: sum
+		sourceColumn: order_metric_expediton_speed_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_transit_time
+		dataType: double
+		formatString: 0
+		lineageTag: cfeae263-7fd3-4b08-9750-f3f81186c6d3
+		summarizeBy: sum
+		sourceColumn: order_metric_transit_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_cycle_time
+		dataType: double
+		formatString: 0
+		lineageTag: e358bd79-a0c7-4122-b924-edd43520833f
+		summarizeBy: sum
+		sourceColumn: order_metric_cycle_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_created
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 48d944b2-d9d6-4020-97d6-9f729a3d7226
+		summarizeBy: none
+		sourceColumn: order_moment_created
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_moment_collected
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: beb3ad10-baa4-405e-ad9c-1e4ce456457d
+		summarizeBy: none
+		sourceColumn: order_moment_collected
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_metric_paused_time
+		dataType: double
+		lineageTag: 542b9dfe-5b5b-4097-aadb-1183f0596755
+		summarizeBy: sum
+		sourceColumn: order_metric_paused_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_metric_walking_time
+		dataType: double
+		lineageTag: 56343872-9379-4a18-8f20-43ea64822073
+		summarizeBy: sum
+		sourceColumn: order_metric_walking_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CohortMonth = ```
+			
+			CALCULATE (
+			    MIN ( fOrders[order_moment_created] ),
+			    ALLEXCEPT ( fOrders, fOrders[store_id] )
+			)
+			
+			```
+		formatString: Short Date
+		lineageTag: 7b08add0-6600-4d7b-a930-605466f84a41
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CohortMonthName = ```
+			FORMAT([CohortMonth], "YYYY-MM")
+			
+			```
+		lineageTag: 96c80b94-7357-4dfe-a4f6-b8d3c8d125a8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderMonthName = ```
+			FORMAT(fOrders[order_moment_created], "YYYY-MM")
+			
+			```
+		lineageTag: 125579c2-8eb8-4b5a-bb19-513bbdd56529
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber = ```
+			
+			DATEDIFF (
+			    [CohortMonth],
+			    [order_moment_created],
+			    MONTH
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 0bcf4b0b-1150-4392-9ac1-817e10c02382
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 45233387-32f8-4cc6-9f31-6ee9a0191e75
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fOrders = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://drive.google.com/uc?export=download&id=1XfKb3NC6NmAqydovIOKNyTLXaoYBVXHh"),[Delimiter=",", Columns=29, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"order_id", Int64.Type}, {"store_id", Int64.Type}, {"channel_id", Int64.Type}, {"payment_order_id", Int64.Type}, {"delivery_order_id", Int64.Type}, {"order_status", type text}, {"order_amount", Int64.Type}, {"order_delivery_fee", Int64.Type}, {"order_delivery_cost", Int64.Type}, {"order_created_hour", Int64.Type}, {"order_created_minute", Int64.Type}, {"order_created_day", Int64.Type}, {"order_created_month", Int64.Type}, {"order_created_year", Int64.Type}, {"order_moment_created", type datetime}, {"order_moment_accepted", type datetime}, {"order_moment_ready", type datetime}, {"order_moment_collected", type datetime}, {"order_moment_in_expedition", type datetime}, {"order_moment_delivering", type datetime}, {"order_moment_delivered", type datetime}, {"order_moment_finished", type datetime}, {"order_metric_collected_time", Int64.Type}, {"order_metric_paused_time", Int64.Type}, {"order_metric_production_time", Int64.Type}, {"order_metric_walking_time", Int64.Type}, {"order_metric_expediton_speed_time", Int64.Type}, {"order_metric_transit_time", Int64.Type}, {"order_metric_cycle_time", Int64.Type}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"order_moment_in_expedition", "order_moment_delivered"}),
+				    #"[Substituição] - Valore nulos" = Table.ReplaceValue(#"Colunas Removidas",null,0,Replacer.ReplaceValue,{"order_metric_collected_time"}),
+				    #"[Substituição] - Valore nulos1" = Table.ReplaceValue(#"[Substituição] - Valore nulos",null,0,Replacer.ReplaceValue,{"order_metric_paused_time"}),
+				    #"[Substituição] - Valore nulos2" = Table.ReplaceValue(#"[Substituição] - Valore nulos1",null,0,Replacer.ReplaceValue,{"order_metric_production_time"}),
+				    #"[Substituição] - Valore nulos3" = Table.ReplaceValue(#"[Substituição] - Valore nulos2",null,0,Replacer.ReplaceValue,{"order_metric_walking_time"}),
+				    #"[Substituição] - Valore nulos4" = Table.ReplaceValue(#"[Substituição] - Valore nulos3",null,0,Replacer.ReplaceValue,{"order_metric_expediton_speed_time"}),
+				    #"[Substituição] - Valore nulos5" = Table.ReplaceValue(#"[Substituição] - Valore nulos4",null,0,Replacer.ReplaceValue,{"order_metric_transit_time"}),
+				    #"[Substituição] - Valore nulos6" = Table.ReplaceValue(#"[Substituição] - Valore nulos5",null,0,Replacer.ReplaceValue,{"order_metric_cycle_time"}),
+				    #"[Substituição] - Valore nulos7" = Table.ReplaceValue(#"[Substituição] - Valore nulos6",null,0,Replacer.ReplaceValue,{"order_delivery_cost"}),
+				    #"[Tranform] - Data Type" = Table.TransformColumnTypes(#"[Substituição] - Valore nulos7",{{"order_id", type text}, {"store_id", type text}, {"channel_id", type text}, {"payment_order_id", type text}, {"delivery_order_id", type text}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"[Tranform] - Data Type", "order_moment_created", "order_moment_created - Copiar"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Duplicada",{{"order_moment_created - Copiar", type date}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"order_moment_created - Copiar", "Data"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

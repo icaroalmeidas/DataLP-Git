@@ -1,0 +1,48 @@
+table 'PARAMETRO CIDADE'
+	lineageTag: 5a2f253b-385f-456c-8413-0a9da2fc570e
+
+	column 'PARAMETRO CIDADE'
+		lineageTag: f5c95e23-5359-4ff5-b263-78b7368ea1ad
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'PARAMETRO CIDADE Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'PARAMETRO CIDADE Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PARAMETRO CIDADE Campos'
+		isHidden
+		lineageTag: 129d74a4-6238-4580-9ade-caf8ad255d28
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'PARAMETRO CIDADE Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PARAMETRO CIDADE Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 604468a2-7b39-49f0-a228-0237112bdd67
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'PARAMETRO CIDADE' = calculated
+		mode: import
+		source =
+				{
+				    ("QTD Pedidos", NAMEOF('Medidas'[QTD Pedidos]), 0),
+				    ("Tempo Médio de Entrega (Minutos)", NAMEOF('Medidas'[Tempo Médio de Entrega (Minutos)]), 1)
+				}
+
+	annotation PBI_Id = 0576aee4ba2641f4a75a8a6c44ba80f4
+

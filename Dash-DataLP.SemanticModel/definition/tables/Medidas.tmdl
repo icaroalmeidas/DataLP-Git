@@ -1,0 +1,710 @@
+table Medidas
+	lineageTag: e3fdab0d-af7c-4211-b92e-c3639b58ec66
+
+	measure 'QTD Pedidos' = COUNTROWS(fOrders)
+		formatString: #,0
+		displayFolder: 01. Principais
+		lineageTag: 21f2650f-020b-4d84-81ad-c9254d8b2bc9
+
+	measure 'Pedidos Entregues' = ```
+			CALCULATE([QTD Pedidos], NOT(ISBLANK(fOrders[order_moment_finished])))
+			
+			```
+		formatString: #,0
+		displayFolder: 01. Principais
+		lineageTag: 568ac6be-f1d7-444c-b928-f7fa700ecf6d
+
+	measure 'Pedidos Cancelados' = ```
+			CALCULATE(
+			    [QTD Pedidos],
+			    fOrders[order_status] = "CANCELED"
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 01. Principais
+		lineageTag: b7a0d249-16ba-4015-a428-bbcd1b9e99d8
+
+	measure Receita = ```
+			SUMX(fOrders,
+			            fOrders[order_amount])
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 01. Principais
+		lineageTag: 15785b75-3f25-4979-9041-e29c0b94d64f
+
+		annotation PBI_FormatHint = {"currencyCulture":"yrl-Latn-BR"}
+
+	measure 'Ticket Médio' = ```
+			DIVIDE([Receita], [QTD Pedidos])
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 01. Principais
+		lineageTag: b28e0879-f415-4c8d-a2e6-642180d894fa
+
+		annotation PBI_FormatHint = {"currencyCulture":"yrl-Latn-BR"}
+
+	measure 'Tempo Médio de Entrega (Minutos)' = ```
+			
+			AVERAGEX(
+			    FILTER(
+			        fOrders,
+			        NOT(ISBLANK(fOrders[order_moment_finished]))
+			    ),
+			    DATEDIFF(
+			        fOrders[order_moment_created],
+			        fOrders[order_moment_finished],
+			        MINUTE
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 01. Principais
+		lineageTag: 7e0dd080-f901-49c9-82f4-f190c338746d
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '% Pedidos Entregues no Prazo' = ```
+			
+			VAR TempoEntrega = 90 //Definir o tempo de entrega
+			VAR TotalPedidosEntregues = [Pedidos Entregues]
+			VAR TotalPedidosNoPrazo =
+			    CALCULATE (
+			        COUNTROWS ( fOrders ),
+			        FILTER (
+			            fOrders,
+			            NOT ( ISBLANK ( fOrders[order_moment_finished] ) )
+			                && DATEDIFF ( fOrders[order_moment_created], fOrders[order_moment_finished], MINUTE ) <= TempoEntrega
+			        )
+			    )
+			RETURN
+			    DIVIDE ( TotalPedidosNoPrazo, TotalPedidosEntregues, 0 )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01. Principais
+		lineageTag: 73640dfd-520c-4462-ba60-51e4a34d0759
+
+	measure '% de Pedidos Cancelados' = ```
+			
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fOrders ), FILTER ( fOrders, ISBLANK ( fOrders[order_moment_finished] ) ) ),
+			    COUNTROWS ( fOrders ),
+			    0
+			)
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01. Principais
+		lineageTag: 1bb7f6ed-2d3c-45ca-8de6-6765891b7c3b
+
+	measure 'Quantidade de Lojas' = ```
+			DISTINCTCOUNT(dStores[store_id])
+			
+			```
+		formatString: 0
+		displayFolder: 01. Principais
+		lineageTag: 731c9d22-95ca-434e-b81a-f7a43fd596f0
+
+	measure 'Custo Médio de Entrega' = ```
+			AVERAGE(fOrders[order_delivery_cost])
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		displayFolder: 01. Principais
+		lineageTag: 26e6d9ca-37fb-463d-b4f2-f325dcabad32
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Tempo Médio de Resposta (Minutos)' = ```
+			
+			AVERAGEX(
+			    FILTER(
+			        fOrders,
+			        NOT(ISBLANK(fOrders[order_moment_accepted]))
+			    ),
+			    DATEDIFF(
+			        fOrders[order_moment_created],
+			        fOrders[order_moment_accepted],
+			        MINUTE
+			    )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: 01. Principais
+		lineageTag: b44668dd-d282-4a6a-a3d4-2c4fc51295fc
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Total Pedidos' = SUM(fOrders[order_amount])
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 01. Principais
+		lineageTag: a157bc0c-c250-4e3b-98b3-7b7f3e00f337
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure RetainedCustomers = ```
+			
+			VAR TotalCustomersInCohort =
+			    CALCULATE (
+			        DISTINCTCOUNT ( fOrders[store_id] ),
+			        FILTER (
+			            fOrders,
+			            [CohortMonthName] = SELECTEDVALUE ( fOrders[CohortMonthName] )
+			        )
+			    )
+			VAR CustomersInMonth = DISTINCTCOUNT ( fOrders[store_id] )
+			RETURN
+			    DIVIDE ( CustomersInMonth, TotalCustomersInCohort )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: 01. Principais
+		lineageTag: 3db5989e-ce7c-4ccc-990a-16f42bcbc9e1
+
+	measure TempoMédioEntrega = ```
+			
+			AVERAGEX (
+			    SUMMARIZE (
+			        dDeliveries,
+			        dDeliveries[delivery_order_id],
+			        "TempoDeEntrega",
+			        VAR AcceptedTime =
+			            CALCULATE (
+			                MIN ( fOrders[order_moment_accepted] ),
+			                FILTER (
+			                    fOrders,
+			                    fOrders[delivery_order_id] = EARLIER ( dDeliveries[delivery_order_id] )
+			                )
+			            )
+			        VAR FinishedTime =
+			            CALCULATE (
+			                MAX ( fOrders[order_moment_finished] ),
+			                FILTER (
+			                    fOrders,
+			                    fOrders[delivery_order_id] = EARLIER ( dDeliveries[delivery_order_id] )
+			                )
+			            )
+			        RETURN
+			            IF (
+			                ISBLANK ( AcceptedTime ) || ISBLANK ( FinishedTime ),
+			                BLANK (),
+			                DATEDIFF (
+			                    AcceptedTime,
+			                    FinishedTime,
+			                    MINUTE
+			                )
+			            )
+			    ),
+			    [TempoDeEntrega]
+			)
+			
+			
+			
+			```
+		formatString: #,0.00
+		displayFolder: 01. Principais
+		lineageTag: fc9bc305-b92a-4ddf-9d2b-be73c68031a0
+
+	measure DistânciaMédiaEntrega = ```
+			
+			AVERAGE ( dDeliveries[delivery_distance_meters] )
+			
+			```
+		displayFolder: 01. Principais
+		lineageTag: 7bb55290-be60-41ba-94bc-bb935dc7a408
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Receita LM' =
+			CALCULATE(
+			                    [Receita],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 02. Time Intelligence
+		lineageTag: 1ed664f0-03f3-4aa3-ac05-21201ef25269
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Receita MoM %' = DIVIDE([Receita] - [Receita LM], [Receita LM])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03. Variações
+		lineageTag: a1f06369-0520-46ea-b169-9857fe383b91
+
+	measure 'IMAGEM CARTÃO RECEITA' = ```
+			
+			
+			VAR vVariacao = [Receita MoM %]
+			
+			VAR vVariacao_formatado = FORMAT(vVariacao + 0, "+0.0%; -0.0%; 0.0")
+			
+			VAR vSeta = 
+			SWITCH(
+			    TRUE(),
+			    vVariacao > 0, "⮝",
+			    vVariacao < 0, "⮟"
+			)
+			
+			VAR vCor = 
+			SWITCH(
+			    TRUE(),
+			    vVariacao > 0, "59EE74",
+			    vVariacao < 0, "red"
+			)
+			
+			VAR vAnimacao = 
+			    IF( vVariacao < 0, "animation" ) 
+			
+			RETURN
+			
+			"data:image/svg+xml,
+			
+			<svg  viewBox='0 0 100 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			
+			              <defs>
+			            <style>
+			
+			                #Variacao, #Seta {
+			                    " & vAnimacao & ": blink-1 1.5s infinite both;
+			                }
+			
+			                @keyframes blink-1 {
+			                    0%,
+			                    50%,
+			                    100% {
+			                        opacity: 1;
+			                    }
+			                    25%,
+			                    75% {
+			                        opacity: 0;
+			                    }
+			                }
+			
+			            </style> 
+			
+			        </defs> 
+			
+				<rect width='100' height='40' fill='#F5F5F5'/>
+				<g id='1.Cart&#195;&#163;o.VendasBrutas'>
+					<rect width='100' height='40' rx='5' fill='white'/>
+					<text id='Seta' fill=' " & vCor & " ' xml:space='preserve' style='white-space: pre' font-family='Segoe UI' font-size='10' font-weight='600' letter-spacing='0em'>
+						<tspan x='25' y='13.6406'>   " & vSeta & "   </tspan>
+					</text>
+					<text id='LY' fill='#071E2F' xml:space='preserve' style='white-space: pre' font-family='Segoe UI' font-size='9' font-weight='600' letter-spacing='0em'>
+						<tspan x='7' y='27.7266'>   Mês Anterior   </tspan>
+					</text>
+					<text id='Variacao' fill=' " & vCor & " ' xml:space='preserve' style='white-space: pre' font-family='Segoe UI' font-size='15' font-weight='600' letter-spacing='0em'>
+						<tspan x='40' y='16.2109'>   " & vVariacao_formatado & "   </tspan>
+					</text>
+				</g>
+			</svg>
+			
+			"
+			```
+		displayFolder: 04. SVGs
+		lineageTag: 49bf65af-fde6-418e-82e2-93f104c49f29
+
+	measure 'Imagem Tabela Cidades' = ```
+			
+			VAR vCidade = SELECTEDVALUE( dHubs[hub_city] )
+			
+			VAR vValor = [Receita]
+			
+			VAR vValor_formatado = 
+			    SWITCH(
+			        TRUE(),
+			        vValor >= 1000000000, FORMAT(vValor, "0,,,.00 Bi"),
+			        vValor >= 1000000, FORMAT(vValor, "0,,.00 Mi"),
+			        vValor >= 1000, FORMAT(vValor, "0,.00 K"),
+			        FORMAT(vValor, "0")
+			    ) 
+			
+			
+			VAR vMargem_formatada = FORMAT( [Receita MoM %], "0.00%" ) 
+			
+			-----------------------------------------
+			-- FORMATAÇÕES 
+			-----------------------------------------
+			
+			VAR vFonte = "Segoe UI"
+			
+			VAR vCidade_cor = "#f1f1f1"
+			VAR vCidade_tam = 12 
+			
+			
+			RETURN 
+			"
+			<svg  width='255' height='79' viewBox='0 0 255 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+			
+			    <defs>
+			        <style>
+			     
+			
+			            #txt_cidade, #txt_faturamento, #txt_margem {
+			                transition: 0.5s
+			            }
+			
+			            svg:hover #txt_cidade {
+			                transform:translate(126px)
+			            }
+			
+			            svg:hover #txt_faturamento {
+			                transform:translate(-126px)
+			            }
+			
+			            svg:hover #txt_margem {
+			                transform:translate(-126px)
+			            }
+			
+			
+			        </style> 
+			
+			    </defs>
+			
+				<g id='tabela_cidades'>
+					<line id='divisor' x1='127.5' y1='14' x2='127.5' y2='50' stroke='white' stroke-opacity='0.1'/>
+			
+					<text id='txt_cidade' fill='" & vCidade_cor & "'  font-family='" & vFonte & "' font-size='" & vCidade_tam & "' font-weight='400'>
+						<tspan x='28' y='37'>
+			                " & vCidade & "
+			            </tspan>
+					</text>
+			
+					<text id='txt_faturamento' fill='#f1f1f1'  font-family='" & vFonte & "' font-size='13' font-weight='600'>
+						<tspan x='155' y='26.2109'>
+			                R$ " & vValor_formatado & "
+			            </tspan>
+					</text>
+					<text id='txt_margem' fill='#D1783C'  font-family='" & vFonte & "' font-size='13' font-weight='600'>
+						<tspan x='155' y='53.2109'>
+			                " & vMargem_formatada & "
+			            </tspan>
+					</text>
+				</g>
+			</svg>
+			"
+			```
+		displayFolder: 04. SVGs
+		lineageTag: f08d47cc-3b22-44c8-b96f-b4bd1a8b39b4
+
+	measure ReceitaMédiaMensal =
+			
+			AVERAGEX (
+			    VALUES ( dCalendario[NomeDoMês] ),
+			    CALCULATE ( SUM ( fOrders[order_amount] ) )
+			)
+		displayFolder: 01. Principais
+		lineageTag: 17551f3a-2873-4fdb-901f-119226786515
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Margem = DIVIDE([Total Pedidos],[Receita])
+		displayFolder: 01. Principais
+		lineageTag: 1f74facc-1839-4a95-a2c8-4c1122176344
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Eixo Y Max(Receita)' = ```
+			
+			
+			VAR vTabela = 
+			    ALLSELECTED( dCalendario[NomeDoMêsAbrev], dCalendario[Mês] )
+			
+			VAR vMaior_valor = 
+			    MAXX( vTabela, [Receita] )
+			
+			VAR vDeslocamento = 1.7
+			
+			RETURN 
+			    vMaior_valor * vDeslocamento 
+			```
+		displayFolder: 04. Auxiliares
+		lineageTag: 970e8c0d-4018-4768-937f-21fde2be1549
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'QTD Pedidos LM' =
+			CALCULATE(
+			                    [QTD Pedidos],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: #,0
+		displayFolder: 02. Time Intelligence
+		lineageTag: 09d4b028-b3bf-4784-8e2d-3038a3a41f5a
+
+	measure 'QTD Pedidos MoM %' = DIVIDE([QTD Pedidos] - [QTD Pedidos LM], [QTD Pedidos LM])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 03. Variações
+		lineageTag: ef5e2b9b-d131-4a93-bdb1-53af3f4475d6
+
+	measure 'Eixo Y Max(Pedidos)' = ```
+			
+			
+			VAR vTabela = 
+			    ALLSELECTED( dCalendario[NomeDoMêsAbrev], dCalendario[Mês] )
+			
+			VAR vMaior_valor = 
+			    MAXX( vTabela, [QTD Pedidos] )
+			
+			VAR vDeslocamento = 1.5
+			
+			RETURN 
+			    vMaior_valor * vDeslocamento 
+			```
+		displayFolder: 04. Auxiliares
+		lineageTag: ec9c94e5-4284-476b-983d-b10a1c85a5e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Eixo Y Max(Pedidos Cancelados)' = ```
+			
+			
+			VAR vTabela = 
+			    ALLSELECTED( dCalendario[NomeDoMêsAbrev], dCalendario[Mês] )
+			
+			VAR vMaior_valor = 
+			    MAXX( vTabela, [Pedidos Cancelados] )
+			
+			VAR vDeslocamento = 1.5
+			
+			RETURN 
+			    vMaior_valor * vDeslocamento 
+			```
+		displayFolder: 04. Auxiliares
+		lineageTag: 7e7dfbca-75ed-4165-9418-5b1c9261a53b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pedidos Cancelados LM' =
+			CALCULATE(
+			                    [Pedidos Cancelados],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: #,0
+		displayFolder: 02. Time Intelligence
+		lineageTag: 8c36e477-f9c1-4b56-9b3b-fb6d466c5372
+
+	measure 'Pedidos Cancelados MoM %' = DIVIDE([Pedidos Cancelados] - [Pedidos Cancelados LM], [Pedidos Cancelados LM])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 03. Variações
+		lineageTag: 0411a978-48f6-409e-9c08-043425a80f06
+
+	measure 'Subtitulo Mes' =
+			
+			
+			"Período Selecionadao: " & SELECTEDVALUE(dCalendario[NomeDoMêsAbrev])
+		displayFolder: 04. Auxiliares
+		lineageTag: 33737182-81ee-4dd8-90b4-04170d273144
+
+	measure Subtitulo(Ano) =
+			
+			
+			"Período Selecionadao: " & SELECTEDVALUE(dCalendario[Ano])
+		displayFolder: 04. Auxiliares
+		lineageTag: 8a1f4199-afd9-4832-a0af-e119520e8218
+
+	measure 'Ticket Médio LM' =
+			CALCULATE(
+			                    [Ticket Médio],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		displayFolder: 02. Time Intelligence
+		lineageTag: 8926c836-adad-49cd-9b6d-e5419548c3de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ticket Médio MoM %' = DIVIDE([Ticket Médio] - [Ticket Médio LM], [Ticket Médio LM])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03. Variações
+		lineageTag: de1cd65a-c870-4ced-93ed-aa33af5a66be
+
+	measure 'Tempo Médio de Entrega LM' =
+			CALCULATE(
+			                    [Tempo Médio de Entrega (Minutos)],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 02. Time Intelligence
+		lineageTag: 6161eaa7-61a8-4ab4-96c9-db84ac02259a
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Quantidade de Lojas LM' =
+			CALCULATE(
+			                    [Quantidade de Lojas],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 02. Time Intelligence
+		lineageTag: b084abd9-6ca3-4c11-bfb7-ce57e01185a0
+
+	measure 'Quantidade de Lojas MoM %' = DIVIDE([Quantidade de Lojas] - [Quantidade de Lojas LM], [Quantidade de Lojas LM])
+		displayFolder: 03. Variações
+		lineageTag: b40ce06e-052c-4644-93a5-11f0e95901cb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tempo Médio de Entrega MoM %' = DIVIDE([Tempo Médio de Entrega (Minutos)] - [Tempo Médio de Entrega LM], [Tempo Médio de Entrega LM])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03. Variações
+		lineageTag: 67078d62-9b33-4628-a95c-5ed7f13ad237
+
+	measure 'Receita LY' =
+			CALCULATE(
+			                    [Receita],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 05. Outras
+		lineageTag: a65a92d0-6fa1-4fd9-ae64-79019265156b
+
+	measure 'Pedidos Cancelados LY' =
+			CALCULATE(
+			                    [Pedidos Cancelados],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 05. Outras
+		lineageTag: 75732ae1-c67c-4896-8a2c-a221e880c54e
+
+	measure 'QTD Pedidos LY' =
+			CALCULATE(
+			                    [QTD Pedidos],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 05. Outras
+		lineageTag: 26ebbeec-5ee8-4d61-8f3e-bdfa704b8d2b
+
+	measure 'Quantidade de Lojas LY' =
+			CALCULATE(
+			                    [Quantidade de Lojas],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		formatString: 0
+		displayFolder: 05. Outras
+		lineageTag: e69fbcce-9cfa-4faa-befd-3ff7f4d71fda
+
+	measure 'Tempo Médio de Entrega LY' =
+			CALCULATE(
+			                    [Tempo Médio de Entrega (Minutos)],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		displayFolder: 05. Outras
+		lineageTag: e93c0f87-3353-4ce6-bc1f-5ccb60fd9425
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ticket Médio LY' =
+			CALCULATE(
+			                    [Ticket Médio],
+			                    SAMEPERIODLASTYEAR(dCalendario[Data])
+			)
+		displayFolder: 05. Outras
+		lineageTag: 6e83911d-b33e-4ae9-84a1-aca539888433
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Pedidos No Prazo' =
+			
+			
+			VAR TempoEntrega = 90 //Definir o tempo de entrega
+			
+			VAR TotalPedidosNoPrazo =
+			    CALCULATE (
+			        COUNTROWS ( fOrders ),
+			        FILTER (
+			            fOrders,
+			            NOT ( ISBLANK ( fOrders[order_moment_finished] ) )
+			                && DATEDIFF ( fOrders[order_moment_created], fOrders[order_moment_finished], MINUTE ) <= TempoEntrega
+			        )
+			    )
+			RETURN
+			    TotalPedidosNoPrazo
+		formatString: #,0
+		displayFolder: 01. Principais
+		lineageTag: 3632bdcf-6d62-4f25-8cbf-67dec23a03a1
+
+	measure 'Pedidos Entregues LM' =
+			CALCULATE(
+			                    [Pedidos Entregues],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: #,0
+		displayFolder: 02. Time Intelligence
+		lineageTag: d926c3f2-e2ae-44ec-9425-c65290ea2c72
+
+	measure 'Pedidos Entregues MoM %' = DIVIDE([Pedidos Entregues] - [Pedidos Entregues LM], [Pedidos Entregues LM])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03. Variações
+		lineageTag: 8af09944-4d81-4172-a5cf-27305a77520f
+
+	measure '% de Pedidos Cancelados LM' =
+			CALCULATE(
+			                    [% de Pedidos Cancelados],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 02. Time Intelligence
+		lineageTag: fe6047f7-ecb2-47e0-9d6c-5f12ea6c8f36
+
+	measure '% de Pedidos Cancelados MoM %' = DIVIDE([% de Pedidos Cancelados] - [% de Pedidos Cancelados LM], [% de Pedidos Cancelados LM])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 03. Variações
+		lineageTag: 9f501ef6-fb1e-47ac-a059-f944cb232ec2
+
+	measure '% Pedidos Entregues no Prazo LM' =
+			CALCULATE(
+			                    [% Pedidos Entregues no Prazo],
+			                    PREVIOUSMONTH(dCalendario[Data])
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Time Intelligence
+		lineageTag: 7cb93f09-6d3b-4cc8-8aa8-ae4d2b163a67
+
+	measure '% Pedidos Entregues no Prazo MoM %' = DIVIDE([% Pedidos Entregues no Prazo] - [% Pedidos Entregues no Prazo LM], [% Pedidos Entregues no Prazo LM])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 03. Variações
+		lineageTag: 29c9a906-e292-41b6-bf77-d0f365eeac9a
+
+	measure 'Eixo Y Max(Tempo de Resposta)' = ```
+			
+			
+			VAR vTabela = 
+			    ALLSELECTED( dCalendario[NomeDoMêsAbrev], dCalendario[Mês], dCalendario[NomeDaSemanaAno], dCalendario[SemanaAno] )
+			
+			VAR vMaior_valor = 
+			    MAXX( vTabela, [Tempo Médio de Resposta (Minutos)] )
+			
+			VAR vDeslocamento = 1.5
+			
+			RETURN 
+			    vMaior_valor * vDeslocamento 
+			```
+		displayFolder: 04. Auxiliares
+		lineageTag: 0701a100-6fd8-46cb-bbbd-9f0b029d1832
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: bd2297d6-6616-4116-a2dd-fde79730efbd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = calculated
+		mode: import
+		source = {0}
+
+	annotation PBI_Id = d911ff50505a41ee81e730fca38540d9
+
