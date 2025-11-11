@@ -323,6 +323,19 @@
             }
           }
         }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'e82433881abe2189c292'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
