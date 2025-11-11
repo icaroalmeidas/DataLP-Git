@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "224a68623d493a856325",
   "position": {
-    "x": 234.61579990245457,
-    "y": 460.1251497803222,
+    "x": 185.78428927680855,
+    "y": 460.54862842892766,
     "z": 1000,
-    "height": 39.264012781254159,
-    "width": 63.804020769538013,
+    "height": 38.603491271820445,
+    "width": 161.59600997506234,
     "tabOrder": 1000
   },
   "visual": {
@@ -117,7 +117,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'GERAL'"
+                  "Value": "'Visão Estratégica'"
                 }
               }
             },
