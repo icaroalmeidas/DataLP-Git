@@ -116,3 +116,5 @@ Comunicação: O resultado foi uma visualização completa com todos os requisit
 
 - Desempenho 
   ![alt text](image-3.png)
+
+  # [Acesse o Relatório aqui!](https://app.powerbi.com/view?r=eyJrIjoiY2VhNjY4MmYtNDIzZC00MDU1LTgwMjUtYTViMDdlNGViYzNiIiwidCI6ImY1YWQzMWRlLTdiMWQtNDFmNC1hYzJiLTM3Zjk0NWE4OGIyYyJ9)
