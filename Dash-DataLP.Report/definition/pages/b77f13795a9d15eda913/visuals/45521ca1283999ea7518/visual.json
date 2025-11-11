@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
   "name": "45521ca1283999ea7518",
   "position": {
-    "x": 374.23512182132879,
-    "y": 460.1251497803222,
+    "x": 374.36408977556107,
+    "y": 460.54862842892766,
     "z": 2000,
-    "height": 39.264012781254159,
-    "width": 83.4360271601651,
+    "height": 38.603491271820445,
+    "width": 102.34413965087282,
     "tabOrder": 2000
   },
   "visual": {
@@ -117,7 +117,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PEDIDOS'"
+                  "Value": "'Desempenho'"
                 }
               }
             },
