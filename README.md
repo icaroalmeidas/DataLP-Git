@@ -99,22 +99,22 @@ Tatramentos realizados:
 Modelagem: A modelagem escolhida foi a esquema estrela pela estrutura dos dados já muito bem definidas e prontas para utilizar-la. Com duas modelagens Snowflack antre dStories-dHubs e dDeliveries-dDrivers.
 A Modelagem abaixo nos permite relacionar os dados em várias dimensões proporcionando a possibilidade de analise bem avençadas. 
 
-![alt text](ModelagemBI.png)
+![alt text](/imagens/ModelagemBI.png)
 
 Avaliação: Avalio que o desafio permite que o analista em questão possa fazer muitas analises e demosntrar sua capacidade de tranformar dados em descisões de forma bem aprofundada.
 
 Comunicação: O resultado foi uma visualização completa com todos os requisitos solicitados no teste com over deliveries. Como podemos ver nas imagens abaixo:
 
 - Capa
- ![alt text](image.png)
+ ![alt text](/imagens/image.png)
 
 - Visão Estratégica 
- ![alt text](image-1.png)
+ ![alt text](/imagens/image-1.png)
 
 - Visão Estratégica - Tooltip - Receita por Cidade comparativo mês atual vs Mês anterior
-  ![alt text](image-2.png)
+  ![alt text](/imagens/image-2.png)
 
 - Desempenho 
-  ![alt text](image-3.png)
+  ![alt text](/imagens/image-3.png)
 
   # [Acesse o Relatório aqui!](https://app.powerbi.com/view?r=eyJrIjoiY2VhNjY4MmYtNDIzZC00MDU1LTgwMjUtYTViMDdlNGViYzNiIiwidCI6ImY1YWQzMWRlLTdiMWQtNDFmNC1hYzJiLTM3Zjk0NWE4OGIyYyJ9)
