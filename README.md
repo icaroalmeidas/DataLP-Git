@@ -1,5 +1,8 @@
 # ESTE DOCUMENTO VISA TRAQUEAR O PROJETO EM POWER BI FEITO PARA UMA EMPRESA DE CONSULTORIA.
 
+Usando o VS Studio Code como IDE integrado com o Git e Github conectei o prower BI services ai github proporcionando um diretório remoto com o arquivo em Ppib, um arquivo de projeto do Power BI.
+Esta estrutura permite que varias pessoas trabalhem um uma branch de desenvolvimento sem alterar o projeto principal até que todas asmudanças sejam validadas e ainda acompanha e resgistra todas as alterações e o autor delas. Proporcionando um melhor versionamento e produção do projeto.
+
 ## Objetivos
 
 Definição do Problema: O problema foi apresentado sobre uma operação de Delivery Center com o objetivos de obter uma visão abrangente da operação, permitindo avaliar o desempenho, identificar melhorias e tomar decisões estratégicas. 
@@ -91,16 +94,27 @@ Tatramentos realizados:
 - order_metric_collected_time | order_metric_paused_time | order_metric_production_time | order_metric_walking_time | order_metric_expediton_speed_time | order_metric_transit_time | order_metric_cycle_time  Nas colunas citadas substituimos os valores nulos por 0 entendendo que não ouveram movimentações na operação, contudo, o valor nulo foi representado como 0.
 - Todas as colunas de ID foram transaformadas para o tipo de dados Texto affim de evitar problemas.
 - Dupliquei a coluna oder_momento_created afim de transformar o formato para data e fazer a conexão com a tabela dCalendário.
-- Nas outracs tabelas fiz trataentos simples como: Remoção de duplicatas, ajustes de tipos de dados e etc..
-- 
-Análise Exploratória de Dados (AED): Explore os dados para identificar padrões, tendências e anomalias. Utilize visualizações e estatísticas descritivas.
+- Nas outras tabelas fiz tratamentos simples como: Remoção de duplicatas, ajustes de tipos de dados e etc..
 
-Modelagem: Escolha e aplique modelos estatísticos ou de machine learning apropriados para responder à pergunta ou resolver o problema.
+Modelagem: A modelagem escolhida foi a esquema estrela pela estrutura dos dados já muito bem definidas e prontas para utilizar-la. Com duas modelagens Snowflack antre dStories-dHubs e dDeliveries-dDrivers.
+A Modelagem abaixo nos permite relacionar os dados em várias dimensões proporcionando a possibilidade de analise bem avençadas. 
 
-Avaliação: Avalie o desempenho dos modelos utilizando métricas relevantes. Ajuste os modelos conforme necessário.
+![alt text](ModelagemBI.png)
 
-Interpretação: Interprete os resultados e tire conclusões relevantes.
+Avaliação: Avalio que o desafio permite que o analista em questão possa fazer muitas analises e demosntrar sua capacidade de tranformar dados em descisões de forma bem aprofundada.
 
-Comunicação: Comunique os resultados de forma clara e concisa, utilizando visualizações e storytelling.
+Comunicação: O resultado foi uma visualização completa com todos os requisitos solicitados no teste com over deliveries. Como podemos ver nas imagens abaixo:
 
-Implementação: Implemente as soluções e monitore o impacto.
+- Capa
+ ![alt text](image.png)
+
+- Visão Estratégica 
+ ![alt text](image-1.png)
+
+- Visão Estratégica - Tooltip - Receita por Cidade comparativo mês atual vs Mês anterior
+  ![alt text](image-2.png)
+
+- Desempenho 
+  ![alt text](image-3.png)
+
+  # [Acesse o Relatório aqui!](https://app.powerbi.com/view?r=eyJrIjoiY2VhNjY4MmYtNDIzZC00MDU1LTgwMjUtYTViMDdlNGViYzNiIiwidCI6ImY1YWQzMWRlLTdiMWQtNDFmNC1hYzJiLTM3Zjk0NWE4OGIyYyJ9)
