@@ -1,7 +1,106 @@
-## INICIANDO PROJETO INTEGRAÇÃO COM GIT
+# ESTE DOCUMENTO VISA TRAQUEAR O PROJETO EM POWER BI FEITO PARA UMA EMPRESA DE CONSULTORIA.
 
-Teste 1
+## Objetivos
 
-Teste 2 - comandos
+Definição do Problema: O problema foi apresentado sobre uma operação de Delivery Center com o objetivos de obter uma visão abrangente da operação, permitindo avaliar o desempenho, identificar melhorias e tomar decisões estratégicas. 
 
-Teste 3 - Dev
+DESCRIÇÃO DOS CONJUNTOS DE DADOS:
+- canais: Este conjunto de dados possui informações sobre os canais de venda (mercados) onde são vendidos os bens e alimentos de nossos lojistas.
+
+- entregas: Este conjunto de dados possui informações sobre as entregas realizadas por nossos entregadores parceiros.
+
+- drivers: Este conjunto de dados possui informações sobre os entregadores parceiros. Eles ficam em nossos hubs e toda vez que um pedido é processado, são eles que fazem as entregas na casa dos consumidores.
+
+- hubs: Este conjunto de dados possui informações sobre os hubs do Delivery Center. Entenda que os Hubs são os centros de distribuição dos pedidos e é dali que saem como entregas.
+
+- Orders: Este conjunto de dados possui informações sobre as vendas processadas através da plataforma do Delivery Center.
+
+- Payments: Este conjunto de dados possui informações sobre os pagamentos realizados ao Delivery Center.
+store: Este dataset possui informações sobre os lojistas. Eles usam a Plataforma do Delivery Center para vender seus itens (bom e/ou comida) nos marketplaces.
+
+Limpeza e Preparação de Dados: 
+A tabela fato de pedidos(orders) foi o foco central da limpeza e tratamento dos dados. Após uma analise exploratório feita em python apenas para entendimento básico do conjunto, foram identificados valores nulos em algumas colunas.
+
+```bash
+order_id                                  0
+store_id                                  0
+channel_id                                0
+payment_order_id                          0
+delivery_order_id                         0
+order_status                              0
+order_amount                              0
+order_delivery_fee                        0
+order_delivery_cost                    7205
+order_created_hour                        0
+order_created_minute                      0
+order_created_day                         0
+order_created_month                       0
+order_created_year                        0
+order_moment_created                      0
+order_moment_accepted                  9461
+order_moment_ready                    25106
+order_moment_collected                42894
+order_moment_in_expedition            67429
+order_moment_delivering               25316
+order_moment_delivered               349398
+order_moment_finished                 15599
+order_metric_collected_time           51492
+order_metric_paused_time              71405
+order_metric_production_time          25107
+order_metric_walking_time             74056
+order_metric_expediton_speed_time     34582
+order_metric_transit_time             25857
+order_metric_cycle_time               15619
+dtype: int64
+```
+Analise em porcentagem.
+```bash
+order_id                              0.000000
+store_id                              0.000000
+channel_id                            0.000000
+payment_order_id                      0.000000
+delivery_order_id                     0.000000
+order_status                          0.000000
+order_amount                          0.000000
+order_delivery_fee                    0.000000
+order_delivery_cost                   1.952580
+order_created_hour                    0.000000
+order_created_minute                  0.000000
+order_created_day                     0.000000
+order_created_month                   0.000000
+order_created_year                    0.000000
+order_moment_created                  0.000000
+order_moment_accepted                 2.563964
+order_moment_ready                    6.803812
+order_moment_collected               11.624422
+order_moment_in_expedition           18.273491
+order_moment_delivering               6.860723
+order_moment_delivered               94.688061
+order_moment_finished                 4.227383
+order_metric_collected_time          13.954509
+order_metric_paused_time             19.351001
+order_metric_production_time          6.804083
+order_metric_walking_time            20.069431
+order_metric_expediton_speed_time     9.371841
+order_metric_transit_time             7.007336
+order_metric_cycle_time               4.232803
+dtype: float64
+```
+Tatramentos realizados:
+- Descartamos o uso da coluna order_moment_delivered para qualquer analise e usamos a order_moment_finished que tem a mesma estrutura, dados e a diferença de tempo entre elas é minima.
+- order_metric_collected_time | order_metric_paused_time | order_metric_production_time | order_metric_walking_time | order_metric_expediton_speed_time | order_metric_transit_time | order_metric_cycle_time  Nas colunas citadas substituimos os valores nulos por 0 entendendo que não ouveram movimentações na operação, contudo, o valor nulo foi representado como 0.
+- Todas as colunas de ID foram transaformadas para o tipo de dados Texto affim de evitar problemas.
+- Dupliquei a coluna oder_momento_created afim de transformar o formato para data e fazer a conexão com a tabela dCalendário.
+- Nas outracs tabelas fiz trataentos simples como: Remoção de duplicatas, ajustes de tipos de dados e etc..
+- 
+Análise Exploratória de Dados (AED): Explore os dados para identificar padrões, tendências e anomalias. Utilize visualizações e estatísticas descritivas.
+
+Modelagem: Escolha e aplique modelos estatísticos ou de machine learning apropriados para responder à pergunta ou resolver o problema.
+
+Avaliação: Avalie o desempenho dos modelos utilizando métricas relevantes. Ajuste os modelos conforme necessário.
+
+Interpretação: Interprete os resultados e tire conclusões relevantes.
+
+Comunicação: Comunique os resultados de forma clara e concisa, utilizando visualizações e storytelling.
+
+Implementação: Implemente as soluções e monitore o impacto.
