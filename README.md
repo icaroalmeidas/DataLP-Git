@@ -1,11 +1,11 @@
 # ESTE DOCUMENTO VISA TRAQUEAR O PROJETO EM POWER BI FEITO PARA UMA EMPRESA DE CONSULTORIA.
 
-Usando o VS Studio Code como IDE integrado com o Git e Github conectei o prower BI services ai github proporcionando um diretório remoto com o arquivo em Ppib, um arquivo de projeto do Power BI.
-Esta estrutura permite que varias pessoas trabalhem um uma branch de desenvolvimento sem alterar o projeto principal até que todas asmudanças sejam validadas e ainda acompanha e resgistra todas as alterações e o autor delas. Proporcionando um melhor versionamento e produção do projeto.
+Usando o VS Studio Code como IDE integrado com o Git e Github conectei o prower BI services ao github proporcionando um diretório remoto com o arquivo em Ppib(Projeto no Power BI).
+Esta estrutura conjunta permite que varias pessoas trabalhem um uma branch de desenvolvimento sem alterar o projeto principal até que todas as mudanças sejam validadas, além de traquear e resgistrar todas as alterações e o autor delas. Proporcionando um melhor versionamento e produção do projeto.
 
 ## Objetivos
 
-Definição do Problema: O problema foi apresentado sobre uma operação de Delivery Center com o objetivos de obter uma visão abrangente da operação, permitindo avaliar o desempenho, identificar melhorias e tomar decisões estratégicas. 
+Definição do Problema: O problema foi apresentado sobre uma operação de Delivery Center com o objetivo de obter uma visão abrangente da operação, permitindo avaliar o desempenho, identificar melhorias e tomar decisões estratégicas. 
 
 DESCRIÇÃO DOS CONJUNTOS DE DADOS:
 - canais: Este conjunto de dados possui informações sobre os canais de venda (mercados) onde são vendidos os bens e alimentos de nossos lojistas.
@@ -92,7 +92,7 @@ dtype: float64
 Tatramentos realizados:
 - Descartamos o uso da coluna order_moment_delivered para qualquer analise e usamos a order_moment_finished que tem a mesma estrutura, dados e a diferença de tempo entre elas é minima.
 - order_metric_collected_time | order_metric_paused_time | order_metric_production_time | order_metric_walking_time | order_metric_expediton_speed_time | order_metric_transit_time | order_metric_cycle_time  Nas colunas citadas substituimos os valores nulos por 0 entendendo que não ouveram movimentações na operação, contudo, o valor nulo foi representado como 0.
-- Todas as colunas de ID foram transaformadas para o tipo de dados Texto affim de evitar problemas.
+- Todas as colunas de ID foram transaformadas para o tipo de dados Texto afim de evitar problemas.
 - Dupliquei a coluna oder_momento_created afim de transformar o formato para data e fazer a conexão com a tabela dCalendário.
 - Nas outras tabelas fiz tratamentos simples como: Remoção de duplicatas, ajustes de tipos de dados e etc..
 
