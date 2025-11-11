@@ -84,11 +84,11 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Total Pedidos No Prazo"
+                  "Property": "% Pedidos Entregues no Prazo"
                 }
               },
-              "queryRef": "Medidas.Total Pedidos No Prazo",
-              "nativeQueryRef": "Total Pedidos No Prazo"
+              "queryRef": "Medidas.% Pedidos Entregues no Prazo",
+              "nativeQueryRef": "% Pedidos Entregues no Prazo"
             }
           ]
         }
@@ -103,7 +103,7 @@
                     "Entity": "Medidas"
                   }
                 },
-                "Property": "Total Pedidos No Prazo"
+                "Property": "% Pedidos Entregues no Prazo"
               }
             },
             "direction": "Descending"
@@ -182,6 +182,13 @@
                       "Value": "'#FFFFFF'"
                     }
                   }
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
                 }
               }
             }
