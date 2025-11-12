@@ -692,6 +692,12 @@ table Medidas
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Meta %' = 0.9
+		displayFolder: 04. Auxiliares
+		lineageTag: c2dd5504-fa75-43fb-8d26-143c7a18d025
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Value
 		isHidden
 		formatString: 0
