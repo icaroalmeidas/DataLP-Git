@@ -13,6 +13,24 @@
     "visualType": "gauge",
     "query": {
       "queryState": {
+        "TargetValue": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Meta %"
+                }
+              },
+              "queryRef": "Medidas.Meta %",
+              "nativeQueryRef": "Meta %"
+            }
+          ]
+        },
         "Y": {
           "projections": [
             {
@@ -105,6 +123,23 @@
                     "ThemeDataColor": {
                       "ColorId": 0,
                       "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "target": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#55AF3B'"
                     }
                   }
                 }
